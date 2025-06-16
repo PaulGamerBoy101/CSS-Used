@@ -9,11 +9,22 @@ function getAllCSS() {
       console.warn('Cannot access stylesheet:', sheet.href);
     }
   }
+  return beautifyCSS(css);
+}
+
+// Basic CSS beautifier
+function beautifyCSS(css) {
+  css = css
+    .replace(/}\s*/g, '}\n\n')
+    .replace(/{\s*/g, ' {\n  ')
+    .replace(/;\s*/g, ';\n  ')
+    .replace(/\n\s*}/g, '\n}')
+    .trim();
+
   return css;
 }
 
 function createModal() {
-  // Avoid adding multiple modals
   if (document.getElementById('extract-css-modal')) return;
 
   const modal = document.createElement('div');
@@ -31,7 +42,7 @@ function createModal() {
   title.style = 'margin: 0;';
 
   const closeBtn = document.createElement('button');
-  closeBtn.textContent = '×'; // Unicode multiply sign for close
+  closeBtn.textContent = '×';
   closeBtn.style = 'background: none; border: none; font-size: 24px; cursor: pointer;';
   closeBtn.onclick = () => modal.remove();
 
@@ -56,8 +67,7 @@ function createModal() {
   document.body.append(modal);
 }
 
-// Listen for message from background script to open modal
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+chrome.runtime.onMessage.addListener((message) => {
   if (message.action === "showCssModal") {
     createModal();
   }
