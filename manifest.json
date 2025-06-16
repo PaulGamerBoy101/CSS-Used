@@ -6,7 +6,11 @@
   "permissions": [
     "activeTab"
   ],
+  "icons": {
+    "128": "CSS-Used-Logo.png"
+  },
   "browser_action": {
+    "default_icon": "icons/icon128.png",
     "default_title": "Extract CSS"
   },
   "background": {
