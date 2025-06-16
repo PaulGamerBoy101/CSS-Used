@@ -1,39 +1,22 @@
 {
   "manifest_version": 2,
   "name": "CSS Used",
-  "version": "3.0.0",
-  "description": "Get all CSS rules used by the selected DOM and its descendants.",
-  "author": "PaulGamerBoy101",
-
+  "version": "1.0",
+  "description": "Extracts all CSS rules on the page and shows them in a modal with copy functionality.",
   "permissions": [
-    "tabs",
-    "storage"
+    "activeTab"
   ],
-
-  "icons": {
-    "16": "static/icon/16.png",
-    "48": "static/icon/48.png",
-    "128": "static/icon/128.png"
-  },
-
   "browser_action": {
-    "default_icon": "static/icon/128.png",
-    "default_title": "CSS Used For Firefox Devtools",
-    "default_popup": "popup.html"
+    "default_title": "Extract CSS"
   },
-
-  "options_ui": {
-    "page": "options.html",
-    "open_in_tab": true
+  "background": {
+    "scripts": ["background.js"]
   },
-
-  "devtools_page": "devtools.html",
-
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["assets/content.js"],
-      "all_frames": true
+      "js": ["content.js"],
+      "run_at": "document_idle"
     }
   ]
 }
